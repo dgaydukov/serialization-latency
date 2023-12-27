@@ -6,10 +6,10 @@ import com.exchange.serialization.model.Order;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public class OrderJsonSerializerTest {
+public class JsonOrderSerializerTest {
   @Test
   public void serializeTest(){
-    Serializer serializer = new OrderJsonSerializer(new JsonSerializerImpl());
+    Serializer serializer = new JsonOrderSerializer(new JsonSerializerImpl());
 
     Order order = MockData.buyLimitOrder();
     String serialized = serializer.serialize(order);

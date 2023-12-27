@@ -4,11 +4,11 @@ import com.exchange.serialization.model.Order;
 import com.exchange.serialization.helper.json.JsonSerializer;
 import com.fasterxml.jackson.core.type.TypeReference;
 
-public class OrderJsonSerializer implements Serializer {
+public class JsonOrderSerializer implements Serializer {
 
   private final JsonSerializer jsonSerializer;
 
-  public OrderJsonSerializer(JsonSerializer jsonSerializer) {
+  public JsonOrderSerializer(JsonSerializer jsonSerializer) {
     this.jsonSerializer = jsonSerializer;
   }
 
