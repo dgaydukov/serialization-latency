@@ -11,7 +11,6 @@ public class Order {
   private char side;
   private double price;
   private double orderQty;
-  private double quoteOrderQty;
   private String symbol;
   private int securityId;
   private char ordType;

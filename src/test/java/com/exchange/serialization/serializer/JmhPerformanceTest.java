@@ -29,7 +29,10 @@ import org.openjdk.jmh.runner.options.OptionsBuilder;
 @Warmup(iterations = 5, time = 5)
 @Measurement(iterations = 5, time = 5)
 public class JmhPerformanceTest {
+
   private Serializer jsonOrderSerializer;
+  private Serializer sbeOrderSerializer;
+  private Order order = MockData.buyLimitOrder();
 
   private AtomicLong atomic = new AtomicLong();
 
@@ -44,13 +47,28 @@ public class JmhPerformanceTest {
   @Setup(Level.Iteration)
   public void setUp() {
     jsonOrderSerializer = new JsonOrderSerializer(new JsonSerializerImpl());
+    sbeOrderSerializer = new SbeOrderSerializer();
+  }
+
+  @Benchmark
+  public void orderGeneration(Blackhole blackhole) {
+    blackhole.consume(MockData.buyLimitOrder());
+  }
+
+  @Benchmark
+  public void jsonSerializationWithOrderGeneration(Blackhole blackhole) {
+    String serialized = jsonOrderSerializer.serialize(MockData.buyLimitOrder());
+    blackhole.consume(jsonOrderSerializer.deserialize(serialized));
   }
 
   @Benchmark
   public void jsonSerialization(Blackhole blackhole) {
-    Order order = MockData.buyLimitOrder();
     String serialized = jsonOrderSerializer.serialize(order);
-    Order obj = (Order) jsonOrderSerializer.deserialize(serialized);
-    blackhole.consume(obj);
+    blackhole.consume(jsonOrderSerializer.deserialize(serialized));
+  }
+  @Benchmark
+  public void sbeSerialization(Blackhole blackhole) {
+    String serialized = sbeOrderSerializer.serialize(order);
+    blackhole.consume(sbeOrderSerializer.deserialize(serialized));
   }
 }

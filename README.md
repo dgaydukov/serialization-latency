@@ -18,5 +18,9 @@ There are 2 types of messages:
 ### SBE
 Binary data is faster then text: json parse is very slow, first you parse bytes into text, then you parse text into json object, by comparing values one-by-one character. While in binary either protobuf or SBE, you already has a pre-compiled message structure and when you parse binary, you know where each value from start to end, and quickly parse it => add to document.
 SBE is faster then other binary formats: since in SBE we first store fixed-sized data like int/long & enums, it's fast-moving reads, and show better performance.
+```bash
+# build your schema manually using following command
+java -jar -Dsbe.output.dir=target/generated-sources/java ~/.m2/repository/uk/co/real-logic/sbe-all/1.30.0/sbe-all-1.30.0.jar src/main/resources/sbe-schema.xml 
+```
 
 ### ProtoBuf
