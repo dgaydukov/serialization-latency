@@ -6,7 +6,7 @@ import com.exchange.serialization.model.Order;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public class JsonOrderSerializerTest {
+public class JsonSerializerTest {
   @Test
   public void serializeTest(){
     Serializer serializer = new JsonOrderSerializer(new JsonSerializerImpl());

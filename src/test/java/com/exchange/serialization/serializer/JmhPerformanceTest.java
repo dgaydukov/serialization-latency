@@ -66,6 +66,7 @@ public class JmhPerformanceTest {
     String serialized = jsonOrderSerializer.serialize(order);
     blackhole.consume(jsonOrderSerializer.deserialize(serialized));
   }
+
   @Benchmark
   public void sbeSerialization(Blackhole blackhole) {
     String serialized = sbeOrderSerializer.serialize(order);
