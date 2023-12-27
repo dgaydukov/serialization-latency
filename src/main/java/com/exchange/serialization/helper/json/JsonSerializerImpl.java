@@ -1,4 +1,4 @@
-package com.exchange.serialization.serializer.json;
+package com.exchange.serialization.helper.json;
 
 import com.exchange.serialization.exception.JsonSerializeException;
 import com.fasterxml.jackson.core.JsonProcessingException;

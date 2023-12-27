@@ -1,4 +1,4 @@
-package com.exchange.serialization.serializer.json;
+package com.exchange.serialization.helper.json;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 
