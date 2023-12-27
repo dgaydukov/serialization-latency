@@ -1,8 +1,12 @@
-package com.exchange.serialization.serializer;
+package com.exchange.serialization.performance;
 
 import com.exchange.serialization.MockData;
 import com.exchange.serialization.helper.json.JsonSerializerImpl;
 import com.exchange.serialization.model.Order;
+import com.exchange.serialization.serializer.CustomTextSerializer;
+import com.exchange.serialization.serializer.JsonOrderSerializer;
+import com.exchange.serialization.serializer.SbeOrderSerializer;
+import com.exchange.serialization.serializer.Serializer;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicLong;
 import org.openjdk.jmh.annotations.Benchmark;
@@ -31,6 +35,7 @@ import org.openjdk.jmh.runner.options.OptionsBuilder;
 public class JmhPerformanceTest {
 
   private Serializer jsonOrderSerializer;
+  private Serializer customOrderSerializer;
   private Serializer sbeOrderSerializer;
   private Order order = MockData.buyLimitOrder();
 
@@ -47,6 +52,7 @@ public class JmhPerformanceTest {
   @Setup(Level.Iteration)
   public void setUp() {
     jsonOrderSerializer = new JsonOrderSerializer(new JsonSerializerImpl());
+    customOrderSerializer = new CustomTextSerializer();
     sbeOrderSerializer = new SbeOrderSerializer();
   }
 
@@ -65,6 +71,12 @@ public class JmhPerformanceTest {
   public void jsonSerialization(Blackhole blackhole) {
     String serialized = jsonOrderSerializer.serialize(order);
     blackhole.consume(jsonOrderSerializer.deserialize(serialized));
+  }
+
+  @Benchmark
+  public void customTextSerialization(Blackhole blackhole) {
+    String serialized = customOrderSerializer.serialize(order);
+    blackhole.consume(customOrderSerializer.deserialize(serialized));
   }
 
   @Benchmark
