@@ -8,6 +8,9 @@ public class CustomTextSerializer implements Serializer {
 
   @Override
   public String serialize(Object obj) {
+    if (obj == null){
+      return null;
+    }
     Order order = (Order) obj;
     StringBuilder sb = new StringBuilder();
     sb.append(order.getOrderId()).append(DIVIDER)
@@ -18,12 +21,15 @@ public class CustomTextSerializer implements Serializer {
         .append(order.getOrderQty()).append(DIVIDER)
         .append(order.getSymbol()).append(DIVIDER)
         .append(order.getSecurityId()).append(DIVIDER)
-        .append(order.getOrdType()).append(DIVIDER);
+        .append(order.getOrdType());
     return sb.toString();
   }
 
   @Override
   public Object deserialize(String str) {
+    if (str == null){
+      return null;
+    }
     Order order = new Order();
     String[] split = str.split(DIVIDER);
     order.setOrderId(Integer.parseInt(split[0]));

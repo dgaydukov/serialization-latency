@@ -2,7 +2,7 @@ package com.exchange.serialization.serializer;
 
 public class SbeOrderSerializer implements Serializer {
 
-  public SbeOrderSerializer(){
+  public SbeOrderSerializer() {
 
   }
 
