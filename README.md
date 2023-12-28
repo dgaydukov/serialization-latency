@@ -5,6 +5,7 @@
 * [Json](#json)
 * [SBE](#sbe)
 * [ProtoBuf](#protobuf)
+* [Test Results](#test-results)
 
 ### Description
 It's not a secret that in low-latency systems the message serialization & deserialization takes the most time out of round-trip. Let's be clear, the java code in matching-engine is quite fast, it's message conversion that takes time and both convert object into string and vice versa. And unfortunately we can't skip this step, cause as long as we need to transfer data over network, we have to deal with serialization.
@@ -24,3 +25,14 @@ java -jar -Dsbe.output.dir=target/generated-sources/java ~/.m2/repository/uk/co/
 ```
 
 ### ProtoBuf
+
+### Test Results
+Preliminary results
+```
+Benchmark                                                Mode  Cnt   Score    Error  Units
+JmhPerformanceTest.customTextSerialization               avgt    5   0.001 ±  0.001  ms/op
+JmhPerformanceTest.jsonSerialization                     avgt    5   0.002 ±  0.001  ms/op
+JmhPerformanceTest.jsonSerializationWithOrderGeneration  avgt    5   0.002 ±  0.001  ms/op
+JmhPerformanceTest.orderGeneration                       avgt    5  ≈ 10⁻⁵           ms/op
+JmhPerformanceTest.sbeSerialization                      avgt    5  ≈ 10⁻⁵           ms/op
+```
