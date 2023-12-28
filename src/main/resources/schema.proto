@@ -1,0 +1,14 @@
+option java_package = "com.exchange.serialization.proto";
+option java_outer_classname = "ProtobufSchema";
+
+message Order {
+  required int64 orderId = 1;
+  optional string clOrdId = 2;
+  required int32 account = 3;
+  required int32 side = 4;
+  required double price = 5;
+  required double orderQty = 6;
+  required string symbol = 7;
+  optional int32 securityId = 8;
+  required int32 ordType = 9;
+}

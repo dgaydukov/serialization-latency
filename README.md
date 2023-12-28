@@ -22,6 +22,16 @@ SBE is faster then other binary formats: since in SBE we first store fixed-sized
 ```bash
 # build your schema manually using following command
 java -jar -Dsbe.output.dir=target/generated-sources/java ~/.m2/repository/uk/co/real-logic/sbe-all/1.30.0/sbe-all-1.30.0.jar src/main/resources/sbe-schema.xml 
+
+# first install protobuf compiler
+ brew install protobuf
+# check version
+protoc --version
+# generate proto file
+protoc -I=src/main/resources --java_out=classes schema.proto
+protoc -I=src/main/resources --java_out=target/generated-sources schema.proto
+# put file into main
+protoc -I=src/main/resources --java_out=src/main/java schema.proto
 ```
 
 ### ProtoBuf
