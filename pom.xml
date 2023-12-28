@@ -68,5 +68,28 @@
       <version>1.36</version>
     </dependency>
   </dependencies>
-
+<build>
+  <plugins>
+<!--    maven protobuf file generation, not working as expected-->
+<!--    <plugin>-->
+<!--      <groupId>com.github.os72</groupId>-->
+<!--      <artifactId>protoc-jar-maven-plugin</artifactId>-->
+<!--      <version>3.11.4</version>-->
+<!--      <executions>-->
+<!--        <execution>-->
+<!--          <phase>generate-sources</phase>-->
+<!--          <goals>-->
+<!--            <goal>run</goal>-->
+<!--          </goals>-->
+<!--          <configuration>-->
+<!--            <protocArtifact>com.google.protobuf:protoc:3.16.3</protocArtifact>-->
+<!--            <inputDirectories>-->
+<!--              <include>src/main/resources</include>-->
+<!--            </inputDirectories>-->
+<!--          </configuration>-->
+<!--        </execution>-->
+<!--      </executions>-->
+<!--    </plugin>-->
+  </plugins>
+</build>
 </project>
