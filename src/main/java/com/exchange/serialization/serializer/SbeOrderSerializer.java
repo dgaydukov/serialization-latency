@@ -5,9 +5,8 @@ import com.exchange.serialization.sbe.MessageHeaderDecoder;
 import com.exchange.serialization.sbe.MessageHeaderEncoder;
 import com.exchange.serialization.sbe.OrderDecoder;
 import com.exchange.serialization.sbe.OrderEncoder;
-import com.exchange.serialization.sbe.VarStringEncodingEncoder;
 import java.nio.ByteBuffer;
-import org.agrona.DirectBuffer;
+import java.util.Arrays;
 import org.agrona.concurrent.UnsafeBuffer;
 
 public class SbeOrderSerializer implements Serializer {
@@ -19,11 +18,11 @@ public class SbeOrderSerializer implements Serializer {
   @Override
   public String serialize(Object obj) {
     Order order = (Order) obj;
-    UnsafeBuffer buffer = new UnsafeBuffer(ByteBuffer.allocate(128));
+    UnsafeBuffer buffer = new UnsafeBuffer(ByteBuffer.allocate(64));
     MessageHeaderEncoder headerEncoder = new MessageHeaderEncoder();
     OrderEncoder encoder = new OrderEncoder().wrapAndApplyHeader(buffer, 0, headerEncoder);
     encoder.orderId(order.getOrderId());
-    encoder.clOrdId().appendTo(new StringBuilder("h3llo"));
+    encoder.clOrdId();
     encoder.account(order.getAccount());
     encoder.side(order.getSide());
     encoder.price(order.getPrice());

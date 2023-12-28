@@ -41,5 +41,5 @@ JmhPerformanceTest.customTextSerialization  avgt    5  ≈ 10⁻³           ms/
 JmhPerformanceTest.jsonSerialization        avgt    5   0.001 ±  0.001  ms/op
 JmhPerformanceTest.orderGeneration          avgt    5  ≈ 10⁻⁵           ms/op
 JmhPerformanceTest.protobufSerialization    avgt    5  ≈ 10⁻⁴           ms/op
-JmhPerformanceTest.sbeSerialization         avgt    5  ≈ 10⁻⁶           ms/op
+JmhPerformanceTest.sbeSerialization         avgt    5  ≈ 10⁻⁴           ms/op
 ```
