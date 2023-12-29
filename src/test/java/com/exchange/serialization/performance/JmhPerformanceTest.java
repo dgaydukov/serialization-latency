@@ -9,7 +9,6 @@ import com.exchange.serialization.serializer.ProtobufSerializer;
 import com.exchange.serialization.serializer.SbeOrderSerializer;
 import com.exchange.serialization.serializer.Serializer;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicLong;
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.BenchmarkMode;
 import org.openjdk.jmh.annotations.Fork;
@@ -31,7 +30,7 @@ import org.openjdk.jmh.runner.options.OptionsBuilder;
 @OutputTimeUnit(TimeUnit.MILLISECONDS)
 @State(Scope.Benchmark)
 @Fork(value = 2, jvmArgs = {"-Xms2G", "-Xmx2G"})
-@Warmup(iterations = 5, time = 5)
+@Warmup(iterations = 2, time = 5)
 @Measurement(iterations = 5, time = 5)
 public class JmhPerformanceTest {
 
@@ -41,8 +40,6 @@ public class JmhPerformanceTest {
   private Serializer sbeOrderSerializer;
   private Order order = MockData.buyLimitOrder();
 
-  private AtomicLong atomic = new AtomicLong();
-
   public static void main(String[] args) throws RunnerException {
     Options opt = new OptionsBuilder()
         .include(JmhPerformanceTest.class.getSimpleName())
@@ -51,44 +48,44 @@ public class JmhPerformanceTest {
     new Runner(opt).run();
   }
 
-//  @Setup(Level.Iteration)
-//  public void setUp() {
-//    jsonOrderSerializer = new JsonOrderSerializer(new JsonSerializerImpl());
-//    customOrderSerializer = new CustomTextSerializer();
-//    protobufOrderSerializer = new ProtobufSerializer();
-//    sbeOrderSerializer = new SbeOrderSerializer();
-//  }
-//
-//  @Benchmark
-//  public void orderGeneration(Blackhole blackhole) {
-//    blackhole.consume(MockData.buyLimitOrder());
-//  }
-//
-//  @Benchmark
-//  public void jsonSerialization(Blackhole blackhole) {
-//    String serialized = jsonOrderSerializer.serialize(order);
-//    //blackhole.consume(serialized);
-//    blackhole.consume(jsonOrderSerializer.deserialize(serialized));
-//  }
-//
-//  @Benchmark
-//  public void customTextSerialization(Blackhole blackhole) {
-//    String serialized = customOrderSerializer.serialize(order);
-//    //blackhole.consume(serialized);
-//    blackhole.consume(customOrderSerializer.deserialize(serialized));
-//  }
-//
-//  @Benchmark
-//  public void protobufSerialization(Blackhole blackhole) {
-//    String serialized = protobufOrderSerializer.serialize(order);
-//    //blackhole.consume(serialized);
-//    blackhole.consume(protobufOrderSerializer.deserialize(serialized));
-//  }
-//
-//  @Benchmark
-//  public void sbeSerialization(Blackhole blackhole) {
-//    String serialized = sbeOrderSerializer.serialize(order);
-//    //blackhole.consume(serialized);
-//    blackhole.consume(sbeOrderSerializer.deserialize(serialized));
-//  }
+  @Setup(Level.Iteration)
+  public void setUp() {
+    jsonOrderSerializer = new JsonOrderSerializer(new JsonSerializerImpl());
+    customOrderSerializer = new CustomTextSerializer();
+    protobufOrderSerializer = new ProtobufSerializer();
+    sbeOrderSerializer = new SbeOrderSerializer();
+  }
+
+  @Benchmark
+  public void orderGeneration(Blackhole blackhole) {
+    blackhole.consume(MockData.buyLimitOrder());
+  }
+
+  @Benchmark
+  public void customTextSerialization(Blackhole blackhole) {
+    byte[] serialized = customOrderSerializer.serialize(order);
+    blackhole.consume(serialized);
+    blackhole.consume(customOrderSerializer.deserialize(serialized));
+  }
+
+  @Benchmark
+  public void jsonSerialization(Blackhole blackhole) {
+    byte[] serialized = jsonOrderSerializer.serialize(order);
+    blackhole.consume(serialized);
+    blackhole.consume(jsonOrderSerializer.deserialize(serialized));
+  }
+
+  @Benchmark
+  public void protobufSerialization(Blackhole blackhole) {
+    byte[] serialized = protobufOrderSerializer.serialize(order);
+    blackhole.consume(serialized);
+    blackhole.consume(protobufOrderSerializer.deserialize(serialized));
+  }
+
+  @Benchmark
+  public void sbeSerialization(Blackhole blackhole) {
+    byte[] serialized = sbeOrderSerializer.serialize(order);
+    blackhole.consume(serialized);
+    blackhole.consume(sbeOrderSerializer.deserialize(serialized));
+  }
 }

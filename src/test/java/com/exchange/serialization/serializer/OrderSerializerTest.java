@@ -4,6 +4,7 @@ import com.exchange.serialization.MockData;
 import com.exchange.serialization.model.Order;
 import com.exchange.serialization.proto.ProtobufSchema;
 import com.exchange.serialization.sbe.OrderDecoder;
+import java.util.Arrays;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -28,15 +29,15 @@ public class OrderSerializerTest {
     byte[] protobufByteArr = new byte[]{8, 1, 18, 9, 97, 112, 105, 95, 49, 50, 51, 52, 53, 24, 1,
         32, 49, 41, 0, 0, 0, 0, 0, 0, 89, 64, 49, 0, 0, 0, 0, 0, 0, 36, 64, 58, 8, 66, 84, 67, 47,
         85, 83, 68, 84, 64, 1, 72, 50};
-    byte[] sbeByteArr = new byte[]{98, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 97, 112, 105,
+    byte[] sbeByteArr = new byte[]{96, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 97, 112, 105,
         95, 49, 50, 51, 52, 53, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        1, 0, 0, 0, 49, 0, 0, 0, 0, 0, 0, 0, 89, 64, 0, 0, 0, 0, 0, 0, 36, 64, 1, 0, 50, 0, 66, 84,
-        67, 47, 85, 83, 68, 84, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        1, 0, 49, 0, 0, 0, 0, 0, 0, 0, 89, 64, 0, 0, 0, 0, 0, 0, 36, 64, 1, 0, 50, 0, 66, 84, 67,
+        47, 85, 83, 68, 84, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
     return Stream.of(
         Arguments.of(new CustomTextSerializer(), customByteArr, customStr),
         Arguments.of(new JsonOrderSerializer(), jsonByteArr, jsonStr),
