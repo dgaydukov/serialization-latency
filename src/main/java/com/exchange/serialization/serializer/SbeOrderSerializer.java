@@ -10,18 +10,18 @@ import org.agrona.concurrent.UnsafeBuffer;
 
 public class SbeOrderSerializer implements Serializer {
 
-  public SbeOrderSerializer() {
-
-  }
+  private OrderEncoder encoder = new OrderEncoder();
+  private MessageHeaderEncoder headerEncoder = new MessageHeaderEncoder();
+  private OrderDecoder dataDecoder = new OrderDecoder();
+  private MessageHeaderDecoder headerDecoder = new MessageHeaderDecoder();
 
   @Override
   public byte[] serialize(Order order) {
-    if (order == null){
+    if (order == null) {
       return null;
     }
     UnsafeBuffer buffer = new UnsafeBuffer(ByteBuffer.allocate(256));
-    MessageHeaderEncoder headerEncoder = new MessageHeaderEncoder();
-    OrderEncoder encoder = new OrderEncoder().wrapAndApplyHeader(buffer, 0, headerEncoder);
+    encoder.wrapAndApplyHeader(buffer, 0, headerEncoder);
     encoder.orderId(order.getOrderId());
     encoder.clOrdId(order.getClOrdId());
     encoder.account(order.getAccount());
@@ -36,13 +36,11 @@ public class SbeOrderSerializer implements Serializer {
 
   @Override
   public Object deserialize(byte[] arr) {
-    if (arr == null){
+    if (arr == null) {
       return null;
     }
     UnsafeBuffer buffer = new UnsafeBuffer(ByteBuffer.allocate(128));
     buffer.wrap(arr);
-    MessageHeaderDecoder headerDecoder = new MessageHeaderDecoder();
-    OrderDecoder dataDecoder = new OrderDecoder();
     dataDecoder.wrapAndApplyHeader(buffer, 0, headerDecoder);
     return dataDecoder;
   }

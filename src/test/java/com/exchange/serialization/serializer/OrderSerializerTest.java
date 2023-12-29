@@ -4,7 +4,6 @@ import com.exchange.serialization.MockData;
 import com.exchange.serialization.model.Order;
 import com.exchange.serialization.proto.ProtobufSchema;
 import com.exchange.serialization.sbe.OrderDecoder;
-import java.util.Arrays;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
