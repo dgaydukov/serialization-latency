@@ -19,11 +19,17 @@ public class JsonOrderSerializer implements Serializer {
 
   @Override
   public byte[] serialize(Order order) {
+    if (order == null){
+      return null;
+    }
     return jsonSerializer.serialize(order).getBytes();
   }
 
   @Override
   public Object deserialize(byte[] arr) {
+    if (arr == null){
+      return null;
+    }
     return jsonSerializer.deserialize(new String(arr), new TypeReference<Order>() {
     });
   }

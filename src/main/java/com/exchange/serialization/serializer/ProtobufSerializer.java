@@ -9,6 +9,9 @@ public class ProtobufSerializer implements Serializer {
 
   @Override
   public byte[] serialize(Order order) {
+    if (order == null){
+      return null;
+    }
     ProtobufSchema.Order protobufOrder = ProtobufSchema.Order.newBuilder()
         .setOrderId(order.getOrderId())
         .setClOrdId(order.getClOrdId())
@@ -25,6 +28,9 @@ public class ProtobufSerializer implements Serializer {
 
   @Override
   public Object deserialize(byte[] arr) {
+    if (arr == null){
+      return null;
+    }
     try {
       return ProtobufSchema.Order.newBuilder()
           .mergeFrom(arr)

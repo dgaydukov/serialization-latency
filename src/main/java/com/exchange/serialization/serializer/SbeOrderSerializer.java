@@ -16,6 +16,9 @@ public class SbeOrderSerializer implements Serializer {
 
   @Override
   public byte[] serialize(Order order) {
+    if (order == null){
+      return null;
+    }
     UnsafeBuffer buffer = new UnsafeBuffer(ByteBuffer.allocate(256));
     MessageHeaderEncoder headerEncoder = new MessageHeaderEncoder();
     OrderEncoder encoder = new OrderEncoder().wrapAndApplyHeader(buffer, 0, headerEncoder);
@@ -33,6 +36,9 @@ public class SbeOrderSerializer implements Serializer {
 
   @Override
   public Object deserialize(byte[] arr) {
+    if (arr == null){
+      return null;
+    }
     UnsafeBuffer buffer = new UnsafeBuffer(ByteBuffer.allocate(128));
     buffer.wrap(arr);
     MessageHeaderDecoder headerDecoder = new MessageHeaderDecoder();
