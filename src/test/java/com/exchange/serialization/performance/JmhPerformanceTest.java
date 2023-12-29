@@ -31,7 +31,7 @@ import org.openjdk.jmh.runner.options.OptionsBuilder;
 @State(Scope.Benchmark)
 @Fork(value = 2, jvmArgs = {"-Xms2G", "-Xmx2G"})
 @Warmup(iterations = 2, time = 5)
-@Measurement(iterations = 5, time = 10)
+@Measurement(iterations = 5, time = 5)
 public class JmhPerformanceTest {
 
   private Serializer jsonOrderSerializer;
@@ -49,7 +49,7 @@ public class JmhPerformanceTest {
 
   @Setup(Level.Iteration)
   public void setUp() {
-    jsonOrderSerializer = new JsonOrderSerializer(new JsonSerializerImpl());
+    jsonOrderSerializer = new JsonOrderSerializer();
     customOrderSerializer = new CustomTextSerializer();
     protobufOrderSerializer = new ProtobufSerializer();
     sbeOrderSerializer = new SbeOrderSerializer();
