@@ -34,11 +34,11 @@ import org.openjdk.jmh.runner.options.OptionsBuilder;
 @Measurement(iterations = 5, time = 5)
 public class JmhPerformanceTest {
 
-  private Serializer jsonOrderSerializer;
   private Serializer customOrderSerializer;
+  private Serializer jsonOrderSerializer;
   private Serializer protobufOrderSerializer;
   private Serializer sbeOrderSerializer;
-  private Order order = MockData.buyLimitOrder();
+  private Order order;
 
   public static void main(String[] args) throws RunnerException {
     Options opt = new OptionsBuilder()
@@ -49,10 +49,11 @@ public class JmhPerformanceTest {
 
   @Setup(Level.Iteration)
   public void setUp() {
-    jsonOrderSerializer = new JsonOrderSerializer();
     customOrderSerializer = new CustomTextSerializer();
+    jsonOrderSerializer = new JsonOrderSerializer();
     protobufOrderSerializer = new ProtobufSerializer();
     sbeOrderSerializer = new SbeOrderSerializer();
+    order = MockData.buyLimitOrder();
   }
 
   @Benchmark
