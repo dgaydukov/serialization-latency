@@ -7,7 +7,17 @@
 * [ProtoBuf](#protobuf)
 * [Test Results](#test-results)
 
+
+
+
 ### Description
+### Text Formats
+##### Text Formats
+
+
+
+
+
 It's not a secret that in low-latency systems the message serialization & deserialization takes the most time out of round-trip. Let's be clear, the java code in matching-engine is quite fast, it's message conversion that takes time and both convert object into string and vice versa. And unfortunately we can't skip this step, cause as long as we need to transfer data over network, we have to deal with serialization.
 There are 2 types of messages:
 * text `XML/JSON/CUSTOM` - here we convert our object into human-readable strings. The big advantage that any human can read raw message and understand it content. The disadvantage in low-latency system, is that it's very slow process.
@@ -36,10 +46,9 @@ protoc -I=src/main/resources --java_out=target/generated-sources schema.proto
 ### Test Results
 Below are test results from [JmhPerformanceTest](/src/test/java/com/exchange/serialization/performance/JmhPerformanceTest.java)
 ```
-Benchmark                                   Mode  Cnt   Score    Error  Units
-JmhPerformanceTest.customTextSerialization  avgt    5  ≈ 10⁻³           ms/op
-JmhPerformanceTest.jsonSerialization        avgt    5   0.001 ±  0.001  ms/op
-JmhPerformanceTest.orderGeneration          avgt    5  ≈ 10⁻⁵           ms/op
-JmhPerformanceTest.protobufSerialization    avgt    5  ≈ 10⁻⁴           ms/op
-JmhPerformanceTest.sbeSerialization         avgt    5  ≈ 10⁻⁴           ms/op
+Benchmark                                    Mode  Cnt      Score      Error   Units
+JmhPerformanceTest.customTextSerialization  thrpt   10   3866.195 ±  767.420  ops/ms
+JmhPerformanceTest.jsonSerialization        thrpt   10   1053.249 ±   29.826  ops/ms
+JmhPerformanceTest.protobufSerialization    thrpt   10   7977.160 ±  277.715  ops/ms
+JmhPerformanceTest.sbeSerialization         thrpt   10  17140.654 ± 3706.266  ops/ms
 ```

@@ -26,12 +26,12 @@ import org.openjdk.jmh.runner.RunnerException;
 import org.openjdk.jmh.runner.options.Options;
 import org.openjdk.jmh.runner.options.OptionsBuilder;
 
-@BenchmarkMode(Mode.Throughput)
+@BenchmarkMode(Mode.AverageTime)
 @OutputTimeUnit(TimeUnit.MILLISECONDS)
 @State(Scope.Benchmark)
 @Fork(value = 2, jvmArgs = {"-Xms2G", "-Xmx2G"})
 @Warmup(iterations = 2, time = 5)
-@Measurement(iterations = 5, time = 5)
+@Measurement(iterations = 5, time = 10)
 public class JmhPerformanceTest {
 
   private Serializer jsonOrderSerializer;
@@ -43,7 +43,6 @@ public class JmhPerformanceTest {
   public static void main(String[] args) throws RunnerException {
     Options opt = new OptionsBuilder()
         .include(JmhPerformanceTest.class.getSimpleName())
-        .forks(1)
         .build();
     new Runner(opt).run();
   }
@@ -54,11 +53,6 @@ public class JmhPerformanceTest {
     customOrderSerializer = new CustomTextSerializer();
     protobufOrderSerializer = new ProtobufSerializer();
     sbeOrderSerializer = new SbeOrderSerializer();
-  }
-
-  @Benchmark
-  public void orderGeneration(Blackhole blackhole) {
-    blackhole.consume(MockData.buyLimitOrder());
   }
 
   @Benchmark
