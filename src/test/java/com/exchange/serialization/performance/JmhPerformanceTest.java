@@ -1,7 +1,6 @@
 package com.exchange.serialization.performance;
 
 import com.exchange.serialization.MockData;
-import com.exchange.serialization.helper.json.JsonSerializerImpl;
 import com.exchange.serialization.model.Order;
 import com.exchange.serialization.serializer.CustomTextSerializer;
 import com.exchange.serialization.serializer.JsonOrderSerializer;
@@ -26,11 +25,11 @@ import org.openjdk.jmh.runner.RunnerException;
 import org.openjdk.jmh.runner.options.Options;
 import org.openjdk.jmh.runner.options.OptionsBuilder;
 
-@BenchmarkMode(Mode.AverageTime)
+@BenchmarkMode(Mode.Throughput)
 @OutputTimeUnit(TimeUnit.MILLISECONDS)
 @State(Scope.Benchmark)
 @Fork(value = 2, jvmArgs = {"-Xms2G", "-Xmx2G"})
-@Warmup(iterations = 2, time = 5)
+@Warmup(iterations = 3, time = 5)
 @Measurement(iterations = 5, time = 5)
 public class JmhPerformanceTest {
 
