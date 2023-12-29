@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sbe:messageSchema xmlns:sbe="http://fixprotocol.io/2016/sbe"
-  package="com.exchange.serialization.sbe" id="1" version="0" semanticVersion="5.2"
-  description="SBE schema for matching engine">
+  description="SBE schema for matching engine" id="1" package="com.exchange.serialization.sbe" semanticVersion="5.2"
+  version="0">
+  <sbe:message description="order object" id="1" name="Order">
+    <field id="0" name="orderId" type="uint64"/>
+    <field id="1" name="clOrdId" type="String32"/>
+    <field id="2" name="account" type="uint16"/>
+    <field id="3" name="side" type="uint16"/>
+    <field id="4" name="price" type="double"/>
+    <field id="5" name="orderQty" type="double"/>
+    <field id="6" name="securityId" type="uint16"/>
+    <field id="7" name="ordType" type="uint16"/>
+    <field id="8" name="symbol" type="String32"/>
+  </sbe:message>
   <types>
-    <composite name="messageHeader"
-      description="Message identifiers and length of message root.">
+    <composite description="Message identifiers and length of message root."
+      name="messageHeader">
       <type name="blockLength" primitiveType="uint16"/>
       <type name="templateId" primitiveType="uint16"/>
       <type name="schemaId" primitiveType="uint16"/>
       <type name="version" primitiveType="uint16"/>
     </composite>
-    <type name="String32" primitiveType="char" length="32" characterEncoding="ASCII"/>
+    <type characterEncoding="ASCII" length="32" name="String32" primitiveType="char"/>
   </types>
-  <sbe:message name="Order" id="1" description="order object">
-    <field name="orderId" id="0" type="uint64"/>
-    <field name="clOrdId" id="1" type="String32"/>
-    <field name="account" id="2" type="uint16"/>
-    <field name="side" id="3" type="uint16"/>
-    <field name="price" id="4" type="double"/>
-    <field name="orderQty" id="5" type="double"/>
-    <field name="securityId" id="6" type="uint16"/>
-    <field name="ordType" id="7" type="uint16"/>
-    <field name="symbol" id="8" type="String32"/>
-  </sbe:message>
 </sbe:messageSchema>

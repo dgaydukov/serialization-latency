@@ -1,8 +1,8 @@
 package com.exchange.serialization.serializer;
 
+import com.exchange.serialization.helper.json.JsonSerializer;
 import com.exchange.serialization.helper.json.JsonSerializerImpl;
 import com.exchange.serialization.model.Order;
-import com.exchange.serialization.helper.json.JsonSerializer;
 import com.fasterxml.jackson.core.type.TypeReference;
 
 public class JsonOrderSerializer implements Serializer {
@@ -19,7 +19,7 @@ public class JsonOrderSerializer implements Serializer {
 
   @Override
   public byte[] serialize(Order order) {
-    if (order == null){
+    if (order == null) {
       return null;
     }
     return jsonSerializer.serialize(order).getBytes();
@@ -27,7 +27,7 @@ public class JsonOrderSerializer implements Serializer {
 
   @Override
   public Object deserialize(byte[] arr) {
-    if (arr == null){
+    if (arr == null) {
       return null;
     }
     return jsonSerializer.deserialize(new String(arr), new TypeReference<Order>() {

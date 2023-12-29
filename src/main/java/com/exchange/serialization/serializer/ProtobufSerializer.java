@@ -9,7 +9,7 @@ public class ProtobufSerializer implements Serializer {
 
   @Override
   public byte[] serialize(Order order) {
-    if (order == null){
+    if (order == null) {
       return null;
     }
     ProtobufSchema.Order protobufOrder = ProtobufSchema.Order.newBuilder()
@@ -28,7 +28,7 @@ public class ProtobufSerializer implements Serializer {
 
   @Override
   public Object deserialize(byte[] arr) {
-    if (arr == null){
+    if (arr == null) {
       return null;
     }
     try {
