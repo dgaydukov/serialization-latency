@@ -51,44 +51,44 @@ public class JmhPerformanceTest {
     new Runner(opt).run();
   }
 
-  @Setup(Level.Iteration)
-  public void setUp() {
-    jsonOrderSerializer = new JsonOrderSerializer(new JsonSerializerImpl());
-    customOrderSerializer = new CustomTextSerializer();
-    protobufOrderSerializer = new ProtobufSerializer();
-    sbeOrderSerializer = new SbeOrderSerializer();
-  }
-
-  @Benchmark
-  public void orderGeneration(Blackhole blackhole) {
-    blackhole.consume(MockData.buyLimitOrder());
-  }
-
-  @Benchmark
-  public void jsonSerialization(Blackhole blackhole) {
-    String serialized = jsonOrderSerializer.serialize(order);
-    //blackhole.consume(serialized);
-    blackhole.consume(jsonOrderSerializer.deserialize(serialized));
-  }
-
-  @Benchmark
-  public void customTextSerialization(Blackhole blackhole) {
-    String serialized = customOrderSerializer.serialize(order);
-    //blackhole.consume(serialized);
-    blackhole.consume(customOrderSerializer.deserialize(serialized));
-  }
-
-  @Benchmark
-  public void protobufSerialization(Blackhole blackhole) {
-    String serialized = protobufOrderSerializer.serialize(order);
-    //blackhole.consume(serialized);
-    blackhole.consume(protobufOrderSerializer.deserialize(serialized));
-  }
-
-  @Benchmark
-  public void sbeSerialization(Blackhole blackhole) {
-    String serialized = sbeOrderSerializer.serialize(order);
-    //blackhole.consume(serialized);
-    blackhole.consume(sbeOrderSerializer.deserialize(serialized));
-  }
+//  @Setup(Level.Iteration)
+//  public void setUp() {
+//    jsonOrderSerializer = new JsonOrderSerializer(new JsonSerializerImpl());
+//    customOrderSerializer = new CustomTextSerializer();
+//    protobufOrderSerializer = new ProtobufSerializer();
+//    sbeOrderSerializer = new SbeOrderSerializer();
+//  }
+//
+//  @Benchmark
+//  public void orderGeneration(Blackhole blackhole) {
+//    blackhole.consume(MockData.buyLimitOrder());
+//  }
+//
+//  @Benchmark
+//  public void jsonSerialization(Blackhole blackhole) {
+//    String serialized = jsonOrderSerializer.serialize(order);
+//    //blackhole.consume(serialized);
+//    blackhole.consume(jsonOrderSerializer.deserialize(serialized));
+//  }
+//
+//  @Benchmark
+//  public void customTextSerialization(Blackhole blackhole) {
+//    String serialized = customOrderSerializer.serialize(order);
+//    //blackhole.consume(serialized);
+//    blackhole.consume(customOrderSerializer.deserialize(serialized));
+//  }
+//
+//  @Benchmark
+//  public void protobufSerialization(Blackhole blackhole) {
+//    String serialized = protobufOrderSerializer.serialize(order);
+//    //blackhole.consume(serialized);
+//    blackhole.consume(protobufOrderSerializer.deserialize(serialized));
+//  }
+//
+//  @Benchmark
+//  public void sbeSerialization(Blackhole blackhole) {
+//    String serialized = sbeOrderSerializer.serialize(order);
+//    //blackhole.consume(serialized);
+//    blackhole.consume(sbeOrderSerializer.deserialize(serialized));
+//  }
 }

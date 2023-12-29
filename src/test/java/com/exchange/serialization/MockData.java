@@ -1,10 +1,6 @@
 package com.exchange.serialization;
 
 import com.exchange.serialization.model.Order;
-import com.exchange.serialization.serializer.ProtobufSerializer;
-import com.exchange.serialization.serializer.SbeOrderSerializer;
-import com.exchange.serialization.serializer.Serializer;
-import org.junit.jupiter.api.Test;
 
 public class MockData {
 
@@ -20,20 +16,5 @@ public class MockData {
     order.setSecurityId(1);
     order.setOrdType('2');
     return order;
-  }
-
-  @Test
-  public void test(){
-//    Serializer serializer = new ProtobufSerializer();
-//    String serialized = serializer.serialize(buyLimitOrder());
-//    System.out.println(serialized);
-//    Object obj = serializer.deserialize(serialized);
-//    System.out.println(obj);
-
-    Serializer serializer = new SbeOrderSerializer();
-    String serialized = serializer.serialize(buyLimitOrder());
-    System.out.println(serialized);
-    Object obj = serializer.deserialize(serialized);
-    System.out.println(obj);
   }
 }

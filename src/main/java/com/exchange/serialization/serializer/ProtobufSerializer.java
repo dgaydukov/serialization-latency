@@ -8,8 +8,7 @@ import com.google.protobuf.InvalidProtocolBufferException;
 public class ProtobufSerializer implements Serializer {
 
   @Override
-  public String serialize(Object obj) {
-    Order order = (Order) obj;
+  public byte[] serialize(Order order) {
     ProtobufSchema.Order protobufOrder = ProtobufSchema.Order.newBuilder()
         .setOrderId(order.getOrderId())
         .setClOrdId(order.getClOrdId())
@@ -21,16 +20,16 @@ public class ProtobufSerializer implements Serializer {
         .setSecurityId(order.getSecurityId())
         .setOrdType(order.getOrdType())
         .build();
-    return new String(protobufOrder.toByteArray());
+    return protobufOrder.toByteArray();
   }
 
   @Override
-  public Object deserialize(String str) {
-    try{
+  public Object deserialize(byte[] arr) {
+    try {
       return ProtobufSchema.Order.newBuilder()
-          .mergeFrom(str.getBytes())
+          .mergeFrom(arr)
           .build();
-    } catch (InvalidProtocolBufferException ex){
+    } catch (InvalidProtocolBufferException ex) {
       throw new ProtobufSerializeException("Failed to deserialize string", ex);
     }
   }

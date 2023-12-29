@@ -1,8 +1,10 @@
 package com.exchange.serialization.serializer;
 
+import com.exchange.serialization.model.Order;
+
 public interface Serializer {
 
-  String serialize(Object obj);
+  byte[] serialize(Order order);
 
-  Object deserialize(String str);
+  Object deserialize(byte[] arr);
 }
