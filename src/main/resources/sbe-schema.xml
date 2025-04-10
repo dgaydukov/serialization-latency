@@ -1,7 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sbe:messageSchema xmlns:sbe="http://fixprotocol.io/2016/sbe"
-  description="SBE schema for matching engine" id="1" package="com.exchange.serialization.sbe" semanticVersion="5.2"
-  version="0">
+                   package="com.exchange.serialization.sbe"
+                   id="1"
+                   version="0"
+                   semanticVersion="5.2"
+                   description="SBE schema for matching engine">
+  <types>
+    <composite name="messageHeader" description="Message identifiers and length of message root.">
+      <type name="blockLength" primitiveType="uint16"/>
+      <type name="templateId" primitiveType="uint16"/>
+      <type name="schemaId" primitiveType="uint16"/>
+      <type name="version" primitiveType="uint16"/>
+    </composite>
+    <type characterEncoding="ASCII" length="32" name="String32" primitiveType="char"/>
+  </types>
   <sbe:message description="order object" id="1" name="Order">
     <field id="0" name="orderId" type="uint64"/>
     <field id="1" name="clOrdId" type="String32"/>
@@ -13,14 +25,4 @@
     <field id="7" name="ordType" type="uint16"/>
     <field id="8" name="symbol" type="String32"/>
   </sbe:message>
-  <types>
-    <composite description="Message identifiers and length of message root."
-      name="messageHeader">
-      <type name="blockLength" primitiveType="uint16"/>
-      <type name="templateId" primitiveType="uint16"/>
-      <type name="schemaId" primitiveType="uint16"/>
-      <type name="version" primitiveType="uint16"/>
-    </composite>
-    <type characterEncoding="ASCII" length="32" name="String32" primitiveType="char"/>
-  </types>
 </sbe:messageSchema>
