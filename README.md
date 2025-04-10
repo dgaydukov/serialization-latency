@@ -45,7 +45,8 @@ If you compile it first time, you may need to manually create 2 directories `tar
 SBE is faster than other binary formats, since in SBE we first store fixed-sized data like int/long & enums, it's fast-moving reads, and show better performance. You can also take a look into [original article from 2014](https://mechanical-sympathy.blogspot.com/2014/05/simple-binary-encoding.html). SBE very similar to other binary formats, like Protobuf. You need to create file with object definition first [sbe-schema.xml](/src/main/resources/sbe-schema.xml). Then using `sbetool` compile this definition into java class (called stub). Then you can use this class. Below is example how to compile definition into java stub.
 ```bash
 # build your schema manually using following command
-java -jar -Dsbe.output.dir=target/generated-sources ~/.m2/repository/uk/co/real-logic/sbe-all/1.30.0/sbe-all-1.30.0.jar src/main/resources/sbe-schema.xml 
+# you can download sbe-all from maven repo
+java -jar -Dsbe.output.dir=target/generated-sources ~/sbe-all/1.30.0/sbe-all-1.30.0.jar src/main/resources/sbe-schema.xml 
 ```
 Once you compiled your definition you can start using it in your code. Take a look into [SbeOrderSerializer](/src/main/java/com/exchange/serialization/serializer/SbeOrderSerializer.java) for more details how to use SBE generated objects. Again just like with protobuf, by default classes `OrderEncoder/OrderDecoder` won't be there, and this java code won't compile. You have to manually compile your definition into java stubs, then you can compile java project and run the tests.
 
